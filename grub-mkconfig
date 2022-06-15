@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
-[[ -v SNAP_PAC_SKIP ]] && { printf "==> skipping due to SNAP_PAC_SKIP being set"; exit 0; }
+case $SNAP_PAC_SKIP in
+  y|yes|true|1)
+    printf "snapper snapshots skipped"
+    exit 0
+    ;;
+esac
 
 /usr/bin/grub-mkconfig -o /boot/grub/grub.cfg
