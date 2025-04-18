@@ -7,4 +7,5 @@ case $SNAP_PAC_SKIP in
     ;;
 esac
 
-/usr/bin/grub-mkconfig -o /boot/grub/grub.cfg
+/usr/bin/nohup bash -c '/usr/bin/grub-mkconfig -o /boot/grub/grub.cfg 2>&1 | logger -t grub-mkconfig' >/dev/null 2>&1 &
+
