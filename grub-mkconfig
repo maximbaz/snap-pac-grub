@@ -2,10 +2,16 @@
 
 case $SNAP_PAC_SKIP in
   y|yes|true|1)
-    printf "snapper snapshots skipped"
+    printf "snapper snapshots skipped\n"
     exit 0
     ;;
 esac
 
-/usr/bin/nohup bash -c '/usr/bin/grub-mkconfig -o /boot/grub/grub.cfg 2>&1 | logger -t grub-mkconfig' >/dev/null 2>&1 &
+case $SNAP_PAC_GRUB_ASYNC in
+  y|yes|true|1)
+    /usr/bin/nohup bash -c '/usr/bin/grub-mkconfig -o /boot/grub/grub.cfg 2>&1 | logger -t grub-mkconfig' >/dev/null 2>&1 &
+    exit 0
+    ;;
+esac
 
+/usr/bin/grub-mkconfig -o /boot/grub/grub.cfg
